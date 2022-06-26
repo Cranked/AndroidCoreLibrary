@@ -53,12 +53,11 @@ abstract class RawActivity : AppCompatActivity() {
         }
 
         if (!checkSelf) {
-            ActivityCompat.requestPermissions(this, permissions, 2000)
+            ActivityCompat.requestPermissions(this, permissions, 1122)
         } else {
             onRequestPermissionResultForRuntime(true)
         }
     }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

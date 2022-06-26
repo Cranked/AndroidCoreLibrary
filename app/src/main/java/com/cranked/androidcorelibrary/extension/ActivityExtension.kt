@@ -10,7 +10,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.provider.Settings
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -362,7 +361,7 @@ fun AppCompatActivity.openFileDefaultAvailableApp(uri: Uri, mimeType: String): B
     return try {
         startActivity(nt)
         true
-    } catch (ex: java.lang.Exception) {
+    } catch (ex: Exception) {
         false
     }
 }
