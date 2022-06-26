@@ -18,7 +18,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,31 +80,18 @@ object FileUtils {
         }
     }
 
+    fun getSizeOfFile(size: Long, round: Int = 2): String {
+        try {
+            if (size <= 0) return "0"
+            val units = arrayOf("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+            val digitGroups = (Math.log10(size.toDouble()) / Math.log10(1024.0)).toInt()
+            return String.format("%.${round}f", size / Math.pow(1024.0, digitGroups.toDouble())) +
+                    " " + units[digitGroups]
 
-    fun getFileSizeText(byteSize: Double, round: Int): String {
-        if (byteSize >= 1024) {
-            val kb = (byteSize / 1024).round(round)
-            if (kb >= 1024) {
-                val mb = (kb / 1024).round(round)
-                if (mb >= 1024) {
-                    val gb = (mb / 1024).round(round)
-                    return "$gb GB"
-                } else {
-                    return "$mb MB"
-                }
-            } else {
-                return "$kb KB"
-            }
-        } else {
-            return "$byteSize bytes"
+        } catch (e: Exception) {
+            println(e.toString())
         }
-    }
-
-
-    fun getFileSizeDoubleGb(byteSize: Double, round: Int): Double {
-        val kb = (byteSize / 1024).round(round)
-        val mb = (kb / 1024).round(round)
-        return (mb / 1024).round(round)
+        return ""
     }
 
     fun Double.round(decimals: Int = 2): Double =
@@ -141,13 +127,26 @@ object FileUtils {
         return "*/*"
     }
 
+    fun getFileSize(file : File): Long {
+        var size: Long = 0
+        if (file.isDirectory) {
+            for (child in file.listFiles()) {
+                size += getFileSize(child)
+            }
+        } else {
+            size = file.length()
+        }
+        return size
+    }
+
+    fun getFileFromPath(path: String) = File(path)
 
     fun getUri(uriPath: String): Uri? {
         try {
             if (uriPath.isNotEmpty()) {
                 return Uri.parse(uriPath)
             }
-        } catch (ignored: Exception) {
+        } catch (e: Exception) {
 
         }
         return null
@@ -193,8 +192,8 @@ object FileUtils {
 
     }
 
-    fun convertFileToBase64(filePath: String,listener:CovertFileToBase64Listener) {
-       val thread = Thread(Runnable {
+    fun convertFileToBase64(filePath: String, listener: CovertFileToBase64Listener) {
+        val thread = Thread {
             BitmapFactory.decodeFile(filePath)?.let {
                 val os = ByteArrayOutputStream()
                 it.compress(Bitmap.CompressFormat.PNG, 100, os)
@@ -205,7 +204,7 @@ object FileUtils {
             }
 
             listener.onResult(null)
-        })
+        }
         thread.start()
     }
 

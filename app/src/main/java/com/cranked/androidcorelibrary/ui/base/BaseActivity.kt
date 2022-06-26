@@ -18,6 +18,9 @@ abstract class BaseActivity<VM : BaseViewModel, VDB : ViewDataBinding>(
     protected val viewModel by lazy {
         ViewModelProvider(this).get(viewModelClass)
     }
+    abstract fun initViewModel(viewModel: VM)
+    protected fun onBindingCreate(binding: VDB) = Unit
+    protected open fun onBindingClear(binding: VDB) = Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +33,6 @@ abstract class BaseActivity<VM : BaseViewModel, VDB : ViewDataBinding>(
         createLiveData()
         createListeners()
     }
-    abstract fun initViewModel(viewModel: VM)
-    protected fun onBindingCreate(binding: VDB) = Unit
-    protected open fun onBindingClear(binding: VDB) = Unit
     override fun onDestroy() {
         super.onDestroy()
         onBindingClear(binding)
