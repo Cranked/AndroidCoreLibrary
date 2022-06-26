@@ -10,6 +10,9 @@ import com.cranked.androidcorelibrary.extension.hideKeyboard
 import com.cranked.androidcorelibrary.local.LocaleManager
 
 abstract class RawActivity : AppCompatActivity() {
+    protected open fun onBundle(bundle: Bundle) = Unit
+    protected open fun createLiveData() = Unit
+    protected open fun createListeners() = Unit
     protected fun startActivity(sClass: Class<*>, finishState: Boolean = false) {
         val intent = Intent(this, sClass)
         startActivity(intent)
@@ -40,10 +43,6 @@ abstract class RawActivity : AppCompatActivity() {
         finish()
         System.exit(0)
     }
-
-    protected open fun onBundle(bundle: Bundle) = Unit
-    protected open fun createLiveData() = Unit
-    protected open fun createListeners() = Unit
     protected fun requestPermissionsForRuntime(permissions: Array<out String>) {
         var checkSelf = true
         permissions.forEach { per ->
@@ -54,7 +53,7 @@ abstract class RawActivity : AppCompatActivity() {
         }
 
         if (!checkSelf) {
-            ActivityCompat.requestPermissions(this, permissions, 1122)
+            ActivityCompat.requestPermissions(this, permissions, 2000)
         } else {
             onRequestPermissionResultForRuntime(true)
         }

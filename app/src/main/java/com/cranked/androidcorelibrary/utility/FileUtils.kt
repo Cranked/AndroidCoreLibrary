@@ -156,37 +156,37 @@ object FileUtils {
     fun getImageByType(type: String): Int {
         when (type) {
             "application/zip" -> {
-                return R.drawable.ic_zip
+                return R.drawable.icon_zip
             }
             "psd" -> {
-                return R.drawable.ic_psd
+                return R.drawable.icon_psd
             }
             "otf" -> {
-                return R.drawable.ic_default
+                return R.drawable.icon_default
             }
             "image/jpeg" -> {
-                return R.drawable.ic_jpg
+                return R.drawable.icon_jpg
             }
             "image/png" -> {
-                return R.drawable.ic_png
+                return R.drawable.icon_png
             }
             "application/pdf" -> {
-                return R.drawable.ic_pdf
+                return R.drawable.icon_pdf
             }
             "image/svg+xml" -> {
-                return R.drawable.ic_svg
+                return R.drawable.icon_svg
             }
             "text/html" -> {
-                return R.drawable.ic_html
+                return R.drawable.icon_html
             }
             "text/css" -> {
-                return R.drawable.ic_css
+                return R.drawable.icon_css
             }
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> {
-                return R.drawable.ic_doc
+                return R.drawable.icon_doc
             }
             else -> {
-                return R.drawable.ic_default
+                return R.drawable.icon_default
             }
         }
 
