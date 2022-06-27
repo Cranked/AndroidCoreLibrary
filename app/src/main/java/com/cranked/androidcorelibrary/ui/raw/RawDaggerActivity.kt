@@ -3,13 +3,13 @@ package com.cranked.androidcorelibrary.ui.raw
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.cranked.androidcorelibrary.extension.hideKeyboard
 import com.cranked.androidcorelibrary.local.LocaleManager
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class RawActivity : AppCompatActivity() {
+abstract class RawDaggerActivity : DaggerAppCompatActivity() {
     protected open fun onBundle(bundle: Bundle) = Unit
     protected open fun createLiveData() = Unit
     protected open fun createListeners() = Unit
