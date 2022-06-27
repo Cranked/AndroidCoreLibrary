@@ -9,11 +9,10 @@ android {
 
     defaultConfig {
         applicationId "com.cranked.androidcorelibrary"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,8 +41,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0"
 
-
+    //Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     testImplementation 'junit:junit:4.13.2'
@@ -54,6 +54,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     //noinspection LifecycleAnnotationProcessorWithJava8
     kapt "androidx.lifecycle:lifecycle-compiler:2.4.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // RxJava3
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
@@ -74,8 +75,8 @@ dependencies {
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
     // Dagger 2
     implementation 'com.google.dagger:dagger:2.35.1'
-    kapt 'com.google.dagger:dagger-compiler:2.27'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.27'
     implementation 'com.google.dagger:dagger-android:2.35.1'
-    kapt 'com.google.dagger:dagger-android-processor:2.27'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.27'
     implementation 'com.google.dagger:dagger-android-support:2.27'
 }
