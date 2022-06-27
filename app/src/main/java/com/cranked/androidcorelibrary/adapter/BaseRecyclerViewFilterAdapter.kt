@@ -1,4 +1,4 @@
-package com.yenen.ahmet.basecorelibrary.base.adapter
+package com.cranked.androidcorelibrary.adapter
 
 import android.widget.Filter
 import android.widget.Filterable

@@ -17,7 +17,7 @@ abstract class BaseFilter<T> protected constructor(filterItems: List<T>,private 
             val results = FilterResults()
             if (constraint != null && constraint.length > 2) {
                 val list: MutableList<T> = mutableListOf()
-                val constLowerCase = constraint.toString().toLowerCase(locale)
+                val constLowerCase = constraint.toString().lowercase(locale)
                 val controlParameter = constLowerCase.substring(0, 2)
                 val lowerCase = constLowerCase.substring(2, constLowerCase.length)
                 allItems?.forEach {
@@ -38,7 +38,7 @@ abstract class BaseFilter<T> protected constructor(filterItems: List<T>,private 
     override fun publishResults(constraint: CharSequence, results: FilterResults?) {
         synchronized(this) {
             results?.values?.let {
-                val constLowerCase = constraint.toString().toLowerCase(locale)
+                val constLowerCase = constraint.toString().lowercase(locale)
                 val lowerCase = constLowerCase.substring(2, constLowerCase.length)
                 val arrayList: List<*> = it as List<*>
                 pubslishResults(lowerCase,arrayList)
@@ -62,7 +62,7 @@ abstract class BaseFilter<T> protected constructor(filterItems: List<T>,private 
 
     @SuppressLint("DefaultLocale")
     fun isContainsLower(model: T, value: String, constLowerCase: String): T? {
-        return if (value.toLowerCase(locale).contains(constLowerCase)) {
+        return if (value.lowercase(locale).contains(constLowerCase)) {
             model
         } else null
     }
