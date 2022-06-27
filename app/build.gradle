@@ -6,7 +6,6 @@ plugins {
 
 android {
     compileSdk 32
-
     defaultConfig {
         applicationId "com.cranked.androidcorelibrary"
         minSdk 23
