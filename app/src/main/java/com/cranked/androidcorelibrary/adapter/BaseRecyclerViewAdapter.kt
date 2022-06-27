@@ -1,4 +1,4 @@
-package com.yenen.ahmet.basecorelibrary.base.adapter
+package com.cranked.androidcorelibrary.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerViewAdapter<T, E : RecyclerView.ViewHolder>
 protected constructor(private var items: MutableList<T>) : RecyclerView.Adapter<E>() {
-
 
     override fun getItemCount(): Int {
         return items.size
@@ -18,7 +17,7 @@ protected constructor(private var items: MutableList<T>) : RecyclerView.Adapter<
         notifyDataSetChanged()
     }
 
-    fun setDiffUtilItems(newItems:List<T>){
+    fun setDiffUtilItems(newItems: List<T>) {
         val diff = BaseDiffUtil<T>(items, newItems)
         diff.calculateAndDispatch(this)
     }
@@ -43,19 +42,15 @@ protected constructor(private var items: MutableList<T>) : RecyclerView.Adapter<
     }
 
     fun getItemPosition(item: T): Int {
-        if (items.isNotEmpty()) {
-            var i = 0
-            var pos = -1
-            for (value in items) {
-                if (item == value) {
-                    pos = i
-                    break
-                }
-                i++
+        var pos = -1
+        items.forEachIndexed { index, element ->
+            if (item == element) {
+                pos = index
+                return@forEachIndexed
             }
-            return pos
         }
-        return -1
+
+        return pos
     }
     // GET FUN //
 
@@ -80,7 +75,7 @@ protected constructor(private var items: MutableList<T>) : RecyclerView.Adapter<
     }
 
     fun addItems(items: List<T>) {
-        if(items.isNotEmpty()){
+        if (items.isNotEmpty()) {
             val x = this.items.size - 1
             this.items.addAll(items)
             val itemCount = this.items.size - 1

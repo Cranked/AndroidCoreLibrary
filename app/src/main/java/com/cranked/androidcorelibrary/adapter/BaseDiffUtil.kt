@@ -1,4 +1,4 @@
-package com.yenen.ahmet.basecorelibrary.base.adapter
+package com.cranked.androidcorelibrary.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
