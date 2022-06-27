@@ -45,13 +45,12 @@ fun Fragment.openWebUrl(url: String): Boolean {
     }
     return false
 }
-
-
 fun Fragment.openFile(uri: Uri, fileType: String, title: String): Boolean {
-    val target = Intent(Intent.ACTION_VIEW)
-    target.setDataAndType(uri, fileType)
-    target.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-    target.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    val target = Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(uri, fileType)
+        flags=Intent.FLAG_ACTIVITY_NO_HISTORY
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
     val intent = Intent.createChooser(target, title)
     return try {
         startActivity(intent)
@@ -60,8 +59,6 @@ fun Fragment.openFile(uri: Uri, fileType: String, title: String): Boolean {
         false
     }
 }
-
-
 fun Fragment.shareFile(
     fileType: String,
     file: File,
@@ -69,11 +66,9 @@ fun Fragment.shareFile(
     subject: String,
     chooserTitle: String
 ): Boolean {
-
     if (!file.exists()) {
         return false
     }
-
     val intentShareFile = Intent().apply {
         type = fileType
         putExtra(Intent.EXTRA_STREAM, filUri)
@@ -87,9 +82,7 @@ fun Fragment.shareFile(
         return true
     }
     return false
-
 }
-
 
 fun Fragment.openAppPermissionPage(): Boolean {
     return try {
@@ -187,14 +180,15 @@ fun Fragment.openRingToneScreen(
     title: String
 ): Boolean {
     getUri(uriPath)?.let { currentTone ->
-        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, ringToneType)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, title)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentTone)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, currentTone)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-        startActivityForResult(intent, requestCode)
+        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, ringToneType)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, title)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentTone)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, currentTone)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            startActivityForResult(this, requestCode)
+        }
         return true
     }
     return false
@@ -335,7 +329,6 @@ fun Fragment.openNavigationYandexMap(latitude: String, longitude: String): Boole
         putExtra("lat_to", latitude)
         putExtra("lon_to", longitude)
     }
-
     if (yandex.resolveActivity(activity!!.packageManager) != null) {
         startActivity(yandex)
         return true
