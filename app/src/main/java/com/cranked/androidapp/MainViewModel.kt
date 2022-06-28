@@ -10,7 +10,7 @@ class MainViewModel: BaseViewModel() {
     }
 
     fun increaseCounter() {
-        println("butona basıldı")
+        println("Pressed button !!!")
         counter++
         stringText.postValue("Counter :" + counter.toString())
     }
