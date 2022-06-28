@@ -19,7 +19,9 @@ abstract class BaseDaggerFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
 ) : RawDaggerFragment() {
     @Inject
     lateinit var providerFactory: AppViewModelFactory
-    protected lateinit var binding: VDB
+    protected val binding by lazy {
+        DataBindingUtil.setContentView(activity!!, layoutRes) as VDB
+    }
     protected val viewModel by lazy {
         ViewModelProvider(this,providerFactory).get(viewmodelClass)
     }
@@ -36,11 +38,9 @@ abstract class BaseDaggerFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,layoutRes, container, false)
         onBaseCreateView(inflater, container, savedInstanceState)
         viewModel.setViewDataBinding(binding)
         initViewModel(viewModel)
-
         onBindingCreate(binding)
 
         arguments?.let {
