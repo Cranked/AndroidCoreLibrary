@@ -13,7 +13,7 @@ abstract class BaseViewBindingPagerAdapter<VDB : ViewDataBinding, T>(
     @LayoutRes private val layoutRes: Int, private var items: MutableList<T>
 ) : PagerAdapter() {
 
-    private var listener :ClickListener<T>?=null
+    private var listener : ClickListener<T>?=null
 
     interface ClickListener<T>{
         fun onItemClick(item:T,position: Int)
@@ -66,7 +66,7 @@ abstract class BaseViewBindingPagerAdapter<VDB : ViewDataBinding, T>(
         notifyDataSetChanged()
     }
 
-    fun setListener(listener:ClickListener<T>){
+    fun setListener(listener: ClickListener<T>){
         this.listener = null
         this.listener =listener
     }
