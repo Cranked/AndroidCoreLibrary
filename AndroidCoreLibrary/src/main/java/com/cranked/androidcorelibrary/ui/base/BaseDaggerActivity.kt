@@ -31,6 +31,7 @@ abstract class BaseDaggerActivity<VM : BaseViewModel, VDB : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setViewDataBinding(binding)
+        setContentView(binding.root)
         initViewModel(viewModel)
         onBindingCreate(binding)
         intent.extras?.let {

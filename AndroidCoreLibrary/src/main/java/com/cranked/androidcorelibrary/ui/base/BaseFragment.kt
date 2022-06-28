@@ -15,13 +15,15 @@ abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
     private val viewModelClass: Class<VM>,
     @LayoutRes private val layoutRes: Int
 ) : RawFragment() {
+    protected val binding by lazy {
+        DataBindingUtil.setContentView(activity!!, layoutRes) as VDB
+    }
     protected val viewModel by lazy {
         ViewModelProvider(this).get(viewModelClass)
     }
     abstract fun initViewModel(viewModel: VM)
     protected fun onBindingCreate(binding: VDB) = Unit
     protected open fun onBindingClear(binding: VDB) = Unit
-    protected lateinit var binding: VDB
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -34,7 +36,6 @@ abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         viewModel.setViewDataBinding(binding)
         initViewModel(viewModel)
         onBindingCreate(binding)
