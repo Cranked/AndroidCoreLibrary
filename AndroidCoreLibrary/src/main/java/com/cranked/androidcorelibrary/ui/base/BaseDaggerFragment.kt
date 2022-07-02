@@ -14,8 +14,7 @@ import com.cranked.androidcorelibrary.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 abstract class BaseDaggerFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
-    private val viewmodelClass: Class<VM>,
-    @LayoutRes private val layoutRes: Int
+    private val viewmodelClass: Class<VM>
 ) : RawDaggerFragment() {
     @Inject
     lateinit var providerFactory: AppViewModelFactory
