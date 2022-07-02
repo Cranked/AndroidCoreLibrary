@@ -12,8 +12,7 @@ import com.cranked.androidcorelibrary.ui.raw.RawFragment
 import com.cranked.androidcorelibrary.viewmodel.BaseViewModel
 
 abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
-    private val viewModelClass: Class<VM>,
-    @LayoutRes private val layoutRes: Int
+    private val viewModelClass: Class<VM>
 ) : RawFragment() {
     protected val viewModel by lazy {
         ViewModelProvider(this).get(viewModelClass)

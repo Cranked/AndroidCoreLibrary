@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.cranked.androidcorelibrary.extension.hideKeyboard
 import com.cranked.androidcorelibrary.local.LocaleManager
+import kotlin.system.exitProcess
 
 abstract class RawActivity : AppCompatActivity() {
     protected open fun onBundle(bundle: Bundle) = Unit
@@ -42,7 +43,7 @@ abstract class RawActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
-        System.exit(0)
+        exitProcess(0)
     }
     protected fun requestPermissionsForRuntime(permissions: Array<out String>) {
         var checkSelf = true

@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import com.cranked.androidcorelibrary.extension.hideKeyboard
 import com.cranked.androidcorelibrary.local.LocaleManager
 import dagger.android.support.DaggerAppCompatActivity
+import kotlin.system.exitProcess
 
 abstract class RawDaggerActivity : DaggerAppCompatActivity() {
     protected open fun onBundle(bundle: Bundle) = Unit
@@ -42,8 +43,9 @@ abstract class RawDaggerActivity : DaggerAppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
-        System.exit(0)
+        exitProcess(0)
     }
+
     protected fun requestPermissionsForRuntime(permissions: Array<out String>) {
         var checkSelf = true
         permissions.forEach { per ->
@@ -59,6 +61,7 @@ abstract class RawDaggerActivity : DaggerAppCompatActivity() {
             onRequestPermissionResultForRuntime(true)
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -73,6 +76,7 @@ abstract class RawDaggerActivity : DaggerAppCompatActivity() {
             }
         }
     }
+
     override fun onPause() {
         super.onPause()
         hideKeyboard()
