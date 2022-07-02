@@ -19,9 +19,8 @@ abstract class BaseDaggerFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
 ) : RawDaggerFragment() {
     @Inject
     lateinit var providerFactory: AppViewModelFactory
-    protected val binding by lazy {
-        DataBindingUtil.setContentView(activity!!, layoutRes) as VDB
-    }
+    protected lateinit var binding: VDB
+
     protected val viewModel by lazy {
         ViewModelProvider(this,providerFactory).get(viewmodelClass)
     }
@@ -48,6 +47,10 @@ abstract class BaseDaggerFragment<VM : BaseViewModel, VDB : ViewDataBinding>(
         }
         return binding.root
     }
+    protected abstract fun getViewDataBinding(
+        layoutInflater: LayoutInflater,
+        parent: ViewGroup?
+    ): VDB
     override fun onDestroyView() {
         super.onDestroyView()
         hideKeyboard()
