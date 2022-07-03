@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.webkit.MimeTypeMap
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.cranked.androidcorelibrary.R
 import java.io.ByteArrayOutputStream
@@ -106,16 +107,17 @@ object FileUtils {
         return "*/*"
     }
 
-
     fun getExtension(fileName: String): String {
-        val arrayOfFilename = fileName.toCharArray()
-        for (i in arrayOfFilename.size - 1 downTo 1) {
-            if (arrayOfFilename[i] == '.') {
-                return fileName.substring(i + 1, fileName.length)
-            }
-        }
-        return ""
+        return fileName.substring(if (fileName.lastIndexOf(".") > 0) fileName
+            .lastIndexOf(".") + 1 else return "",fileName.length)
     }
+
+    fun isSdCardMounted(context: Context) =
+        ContextCompat.getExternalFilesDirs(context, null).size >= 2
+
+    fun getFolderFiles(path: String, maxDepth: Int, drop: Int) =
+        File(path).walkTopDown().maxDepth(maxDepth).drop(drop).filter { !it.isHidden }.toList()
+
 
     fun getExtensionMimeType(fileName: String): String {
         val extension = getExtension(fileName)
@@ -127,7 +129,7 @@ object FileUtils {
         return "*/*"
     }
 
-    fun getFileSize(file : File): Long {
+    fun getFileSize(file: File): Long {
         var size: Long = 0
         if (file.isDirectory) {
             for (child in file.listFiles()) {
