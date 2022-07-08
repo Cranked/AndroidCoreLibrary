@@ -107,11 +107,12 @@ object FileUtils {
         return "*/*"
     }
 
-    fun getExtension(fileName: String): String {
-        return fileName.substring(if (fileName.lastIndexOf(".") > 0) fileName
-            .lastIndexOf(".") + 1 else return "",fileName.length)
-    }
+    fun getExtension(fileName: String)=getFileFromPath(fileName).extension
 
+    fun createfolder(path: String, fileName: String): Boolean {
+        val file = File(path + File.separator + fileName)
+        if (!file.exists()) return file.mkdirs() else return true
+    }
     fun isSdCardMounted(context: Context) =
         ContextCompat.getExternalFilesDirs(context, null).size >= 2
 
