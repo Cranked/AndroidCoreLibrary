@@ -38,7 +38,7 @@ abstract class BaseViewBindingRecyclerViewAdapter<T, VDB : ViewDataBinding>
         getItem(position)?.let {item->
             holder.bind(item,position)
             if (listener != null) {
-                holder.binding.root.setSafeOnClickListener { _ ->
+                holder.binding.root.setOnClickListener { _ ->
                     listener?.onItemClick(item, position,holder.binding as VDB)
                 }
             }
