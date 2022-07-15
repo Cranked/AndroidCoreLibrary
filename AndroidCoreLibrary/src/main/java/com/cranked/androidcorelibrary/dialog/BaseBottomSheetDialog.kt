@@ -3,6 +3,7 @@ package com.cranked.androidcorelibrary.dialog
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,8 @@ abstract class BaseBottomSheetDialog<VDB : ViewDataBinding>(@LayoutRes private v
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.setOnShowListener {
-            (it as View).setBackgroundColor(Color.TRANSPARENT)
+            (view?.parent as ViewGroup).background =
+                ColorDrawable(Color.TRANSPARENT)
         }
         hideKeyboard()
         return dialog
