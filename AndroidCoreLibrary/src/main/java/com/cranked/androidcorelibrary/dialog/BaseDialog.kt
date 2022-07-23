@@ -1,22 +1,24 @@
 package com.cranked.androidcorelibrary.dialog
 
-import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.View
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.cranked.androidcorelibrary.R
 
 class BaseDialog(
-    activity: Activity,
+    context: Context,
     layoutId: Int,
 ) {
     protected var dialog: AlertDialog
-    protected var view: View = activity.layoutInflater.inflate(layoutId, null)
+    val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
+    val view =
+        (layoutInflater as LayoutInflater).inflate(layoutId, null)
 
     init {
 
-        this.dialog = AlertDialog.Builder(activity)
+        this.dialog = AlertDialog.Builder(context)
             .setView(view)
             .create()
         val color = ColorDrawable(Color.TRANSPARENT)
