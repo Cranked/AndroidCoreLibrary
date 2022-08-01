@@ -19,6 +19,8 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -109,20 +111,39 @@ object FileUtils {
 
     fun getExtension(fileName: String) = getFileFromPath(fileName).extension
 
-    fun createfolder(path: String, fileName: String): String {
+    fun createFileAndFolder(path: String, fileName: String): String {
         var x = 0
         val file = File(path + File.separator + fileName)
-        if (!file.exists()) {
-            file.mkdirs()
-            return file.absolutePath
-        } else {
-            while (x >= 0) {
-                ++x
-                val tempFile =
-                    File(path + File.separator + fileName + ' ' + '(' + x.toString() + ')')
-                if (!tempFile.exists()) {
-                    tempFile.mkdirs()
-                    return tempFile.absolutePath
+        if (file.isDirectory) {
+            if (!file.exists()) {
+                file.mkdirs()
+                return file.absolutePath
+            }else{
+                while (x >= 0) {
+                    ++x
+                    val tempFile =
+                        File(path + File.separator + fileName + ' ' + '(' + x.toString() + ')')
+                    if (!tempFile.exists()) {
+                        tempFile.mkdirs()
+                        return tempFile.absolutePath
+                    }
+                }
+            }
+        }else{
+            val source = Paths.get(file.absolutePath)
+            if (file.exists()){
+                while (x >= 0) {
+                    ++x
+                    val rootPath = fileName.substring(0, fileName.lastIndexOf(File(fileName).extension) - 1)
+                    val tempFile =
+                        File(path + File.separator + rootPath + ' ' + '(' + x.toString() + ')' + '.' + file.extension)
+                    if (!tempFile.exists()) {
+                        val destinationPath = tempFile.absolutePath
+                        val destination = Paths.get(destinationPath)
+                        Files.copy(source, destination)
+                        return tempFile.absolutePath
+                    }
+
                 }
             }
         }
