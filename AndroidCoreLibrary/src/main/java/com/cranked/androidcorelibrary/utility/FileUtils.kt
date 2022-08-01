@@ -118,7 +118,7 @@ object FileUtils {
             if (!file.exists()) {
                 file.mkdirs()
                 return file.absolutePath
-            }else{
+            } else {
                 while (x >= 0) {
                     ++x
                     val tempFile =
@@ -129,9 +129,9 @@ object FileUtils {
                     }
                 }
             }
-        }else{
+        } else {
             val source = Paths.get(file.absolutePath)
-            if (file.exists()){
+            if (file.exists()) {
                 while (x >= 0) {
                     ++x
                     val rootPath = fileName.substring(0, fileName.lastIndexOf(File(fileName).extension) - 1)
@@ -145,6 +145,12 @@ object FileUtils {
                     }
 
                 }
+            }
+        }
+        if (file.extension.isEmpty()) {
+            if (!file.exists()) {
+                if (file.mkdirs())
+                    return file.absolutePath
             }
         }
         return ""
