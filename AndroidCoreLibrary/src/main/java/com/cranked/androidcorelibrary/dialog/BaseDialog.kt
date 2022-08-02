@@ -1,34 +1,67 @@
 package com.cranked.androidcorelibrary.dialog
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
-import com.cranked.androidcorelibrary.R
 
 class BaseDialog(
-    context: Context,
-    layoutId: Int,
-) {
-    protected var dialog: AlertDialog
-    val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-    val view =
-        (layoutInflater as LayoutInflater).inflate(layoutId, null)
+    activity: Activity,
+
+    ) {
+    private var dialog: AlertDialog
+    val layoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
+    private lateinit var view: View
 
     init {
-
-        this.dialog = AlertDialog.Builder(context)
-            .setView(view)
+        this.dialog = AlertDialog.Builder(activity)
             .create()
         val color = ColorDrawable(Color.TRANSPARENT)
         dialog.window?.let {
-            it.attributes.windowAnimations = R.style.DialogScale
             it.setBackgroundDrawable(color)
         }
     }
 
+    constructor(activity: Activity, view: View, themeResId: Int) : this(activity) {
+        this.dialog = AlertDialog.Builder(activity, themeResId)
+            .setView(view)
+            .create()
+    }
 
-    @JvmName("getDialog1")
+    constructor(activity: Activity, view: View) : this(activity) {
+        this.dialog = AlertDialog.Builder(activity)
+            .setView(view)
+            .create()
+        val color = ColorDrawable(Color.TRANSPARENT)
+        dialog.window?.let {
+            it.setBackgroundDrawable(color)
+        }
+    }
+
+    constructor(activity: Activity, layoutId: Int) : this(activity) {
+        this.view = (layoutInflater as LayoutInflater).inflate(layoutId, null)
+        this.dialog = AlertDialog.Builder(activity)
+            .setView(view)
+            .create()
+        val color = ColorDrawable(Color.TRANSPARENT)
+        dialog.window?.let {
+            it.setBackgroundDrawable(color)
+        }
+    }
+
+    constructor(activity: Activity, layoutId: Int, themeResId: Int) : this(activity) {
+        this.view = (layoutInflater as LayoutInflater).inflate(layoutId, null)
+        this.dialog = AlertDialog.Builder(activity, themeResId)
+            .setView(view)
+            .create()
+        val color = ColorDrawable(Color.TRANSPARENT)
+        dialog.window?.let {
+            it.setBackgroundDrawable(color)
+        }
+    }
+
     fun getDialog() = this.dialog
 }
